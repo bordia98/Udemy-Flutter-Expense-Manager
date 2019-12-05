@@ -62,11 +62,11 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _addNewTransaction(String txTitle, double txAmount) {
+  void _addNewTransaction(String txTitle, double txAmount,DateTime date) {
     final newTx = Transaction(
       title: txTitle,
       amount: txAmount,
-      date: DateTime.now(),
+      date: date,
       id: DateTime.now().toString(),
     );
 

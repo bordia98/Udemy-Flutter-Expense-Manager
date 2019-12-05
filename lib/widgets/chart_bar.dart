@@ -32,17 +32,19 @@ class Bar extends StatelessWidget {
             children: <Widget>[
               Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 1.0),
-                  color: Colors.white,
+                  border: Border.all(color: Colors.white, width: 0.0),
+                  // color: Colors.white,
+                  color: Theme.of(context).errorColor,
                   borderRadius: BorderRadius.circular(10),
                   ),
               ),
               FractionallySizedBox(
-                
-                heightFactor: percent,
+            
+                heightFactor: 1-percent,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
+                    // color: Theme.of(context).primaryColor,
+                    color: Colors.yellow,
                     borderRadius: BorderRadius.circular(10)
                   ),
                 ),
