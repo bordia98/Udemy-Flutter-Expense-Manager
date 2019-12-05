@@ -3,15 +3,17 @@ import 'package:intl/intl.dart';
 
 import '../models/transaction.dart';
 
+
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
+  final Function deletetrans;
 
-  TransactionList(this.transactions);
+  TransactionList(this.transactions,this.deletetrans);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 550,
       child: transactions.isEmpty
           ? Column(
               children: <Widget>[
@@ -32,50 +34,50 @@ class TransactionList extends StatelessWidget {
             )
           : ListView.builder(
               itemBuilder: (ctx, index) {
-                return Card(
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).primaryColor,
-                            width: 2,
-                          ),
-                        ),
+                return Container(
+                  padding: EdgeInsets.all(5),
+                  margin: EdgeInsets.all(5),
+                  child: Card(
+                  elevation: 5, 
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 40,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      child: Container(
                         padding: EdgeInsets.all(10),
-                        width: 200,
-                        height: 60,
-                        child: Text(
-                          'Rs. ${transactions[index].amount.toStringAsFixed(2)}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          textAlign: TextAlign.center,
+                        margin: EdgeInsets.all(10),
+                        child: FittedBox(
+                          child: 
+                            Text(
+                              'Rs. ${transactions[index].amount.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white
+                                ),
+                            ),
+                        ),
+                      ) 
+                    ),
+                    title: Text(
+                        "${transactions[index].title}",
+                        style: Theme.of(context).textTheme.title
+                      ),
+                    subtitle: Text(
+                      DateFormat.yMMMd().format(transactions[index].date),
+                      style: TextStyle(
+                        color: Colors.grey,
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            transactions[index].title,
-                            style: Theme.of(context).textTheme.title,
-                          ),
-                          Text(
-                            DateFormat.yMMMd().format(transactions[index].date),
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
+                      trailing: FlatButton(
+                        child: Icon(
+                          Icons.delete,
+                          color: Theme.of(context).errorColor,
+                        ),
+                        color: Colors.white,
+                        onPressed: ()=> deletetrans(transactions[index].id),
                       ),
-                    ],
-                  ),
+                    )
+                  )
                 );
               },
               itemCount: transactions.length,
